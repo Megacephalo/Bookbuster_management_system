@@ -9,7 +9,7 @@ if __name__=='__main__':
 
     creator = SQL_Processor()
     try:
-        creator.loadSQLFile_without_commit( setup_file )
+        creator.loadSQLFile( setup_file )
     except:
         print('I had done nothing to setup the database. Move on...')
 
