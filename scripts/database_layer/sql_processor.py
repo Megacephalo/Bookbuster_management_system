@@ -17,13 +17,23 @@ class SQL_Processor:
             self.conn.commit()
             print('Commited. Done.')
 
+
     def wrapup(self):
         self.service = None
+        self.conn.close()
+
     
     def getCursor(self):
         return self.conn.cursor()
 
     def query(self, query, parameters = ()):
         cursor = self.getCursor()
-        cursor.execute( query, parameters )
-        return cursor.fetchall()
+
+        try:
+            cursor.execute( query, parameters )
+            return cursor.fetchall()
+        except Exception as err:
+            print('SQL_Processor::query(): Exception: {}'.format(err))
+        finally:
+            self.wrapup()
+
